@@ -1,0 +1,31 @@
+{
+  "name": "jclecas/module-event-log",
+  "description": "Jclecas EventLog - Magento 2",
+  "authors": [
+    {
+      "name": "Jean-Christophe LECAS",
+      "email": "jeanchristophe.lecas@gmail.com"
+    }
+  ],
+
+  "type": "magento2-module",
+  "license": "proprietary",
+  "version": "1.1.2",
+  "require": {
+    "magento/framework": "~100.0|~101.0",
+    "magento/module-store": "~100.2.2",
+    "magento/module-config": "~101.0.3"
+  },
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Jclecas\\EventLog\\": ""
+    }
+  },
+  "repositories": {
+    "repo.magento.com": {
+      "type": "composer",
+      "url": "https://repo.magento.com/"
+    }
+  }
+}

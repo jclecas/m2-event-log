@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file is part of Jclecas EventLog
+ *
+ * @author JC Lecas <jeanchristophe.lecas@gmail.com> <@jclecas>
+ * @category Jclecas
+ * @package Jclecas\EventLog\etc\adminhtml
+ * @license MIT
+ * @copyright Copyright (c) 2018 JC Lecas (http://jclecas.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="jclecas_eventlog" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Jclecas EventLog</label>
+            <tab>jclecas</tab>
+            <resource>Jclecas_EventLog::config</resource>
+            <group id="general" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>General</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Dispatch EventLog Active</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Do not active on Production server]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
