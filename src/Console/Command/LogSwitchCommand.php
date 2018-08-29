@@ -16,6 +16,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Magento\Config\Model\ResourceModel\Config as ResourceConfig;
+use Magento\Framework\App\Cache\Manager as CacheManager;
 use Magento\Framework\Console\Cli;
 
 class LogSwitchCommand extends Command
@@ -30,11 +31,16 @@ class LogSwitchCommand extends Command
      */
     private $eventLogConfig;
 
+    /**
+     * @var CacheManager
+     */
+    private $cacheManager;
+
     protected function configure()
     {
         $this
             ->setName('event:log:switch')
-            ->setDescription('Event Log Switch');
+            ->setDescription('Log all dispatched events (events.log)');
         parent::configure();
     }
 
@@ -49,14 +55,19 @@ class LogSwitchCommand extends Command
         $isActive = $this->eventLogConfig->isActive();
         $this->resourceConfig->saveConfig($key, ($isActive ? 0 : 1), 'default', 0);
         $action = ($isActive ? 'disabled' : 'enabled');
-        $output->write("Module EventLog has been $action! Clean your cache with:\nbin/magento cache:clean config\n");
+        $output->write("Module EventLog has been $action!\n");
+        $this->cacheManager->clean(['config']);
         return Cli::RETURN_SUCCESS;
     }
 
-    public function __construct(ResourceConfig $resourceConfig, EventLogConfig $eventLogConfig)
-    {
+    public function __construct(
+        ResourceConfig $resourceConfig,
+        EventLogConfig $eventLogConfig,
+        CacheManager $manager
+    ) {
         parent::__construct();
         $this->resourceConfig = $resourceConfig;
         $this->eventLogConfig = $eventLogConfig;
+        $this->cacheManager = $manager;
     }
 }
